@@ -105,11 +105,12 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
                 valid = False
                 rpt_df = cplx_df[boolidx].join(
                     cplx_df[boolidx].sum(axis=1).rename('sum'))
-                log.debug('aep%.4f: \n\n%s'%(aep, rpt_df))
+                with pd.option_context('display.max_rows', 500,'display.max_columns', None,'display.width',1000):
+                    log.debug('aep%.4f: \n\n%s'%(aep, rpt_df))
                 log.error('aep%.4f w/ %i exEvents failed %i (of %i) Psum<1 checks (Pmax=%.2f).. see logger \n    %s'%(
                     aep, len(exp_l), boolidx.sum(), len(boolidx),cplx_df.sum(axis=1).max(), exp_l))
                 
-        assert valid, 'some complex event probabilities exceed 1'
+        assert valid, 'some complex event probabilities exceed 1... see logger'
             
         #=======================================================================
         # #identify those events that need filling

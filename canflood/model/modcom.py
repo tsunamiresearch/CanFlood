@@ -2257,7 +2257,7 @@ class Model(ComWrkr,
         # index checks
         #=======================================================================
         assert 'int' in df.index.dtype.name, 'expected int type index'
-        assert df.index.is_unique, '%s got non-unique index'%self.name
+        assert df.index.is_unique, '%s got non-unique index \'%s\''%(self.name, cid)
         #=======================================================================
         # #cid checks
         #=======================================================================

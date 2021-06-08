@@ -400,6 +400,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
                     layType = 'raster',
                     logger=None,
                     base_dir=None,
+                    addMapLayer=True,
                     **kwargs):
         if logger is None: logger=self.logger
         log=logger.getChild('load_layers')
@@ -421,7 +422,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
             else:
                 raise Error('unrecognized layType: %s'%layType)
             
-            self.mstore.addMapLayer(layer)
+            if addMapLayer: self.mstore.addMapLayer(layer)
             d[layer.name()] = layer
             
         log.info('loaded %i'%len(d))
@@ -881,7 +882,8 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
             wrkr.write_res(res_df)
         else:
             wrkr.out_fp = 'none'
-        wrkr.update_cf()
+            
+        wrkr.update_cf(self.cf_fp)
         
         #=======================================================================
         # plot
@@ -1110,6 +1112,9 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         
         #get control keys for this tool
         if rkwargs is None: rkwargs = self._get_kwargs(wrkr.__class__.__name__)
+        """
+        self.tpars_d
+        """
         
         #pull out setup kwargs
         skwargs = {k:rkwargs.pop(k) for k in rkwargs.copy().keys() if k in ['prep_kwargs']}
@@ -1120,13 +1125,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         # execute
         #=======================================================================
         res_ttl, res_df = wrkr.run(**rkwargs)
-            
-        """
-        wrkr.attriMode
-        for k,v in wrkr.data_d.items():
-            print(k, type(v))
-        
-        """
+ 
         #=======================================================================
         # plots
         #=======================================================================
