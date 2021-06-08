@@ -112,7 +112,7 @@ class DikeJoiner(Qcoms, DPlotr):
         each ifz poly feature corresponds to a dike (sid) segment (for that event) (1 ifzID: many sid)
         these ifz polys can be overlapping
         
-        often users may duplicates layers/maps between events
+        often users may duplicate layers/maps between events
             but our structure allows for unique vals 
             
         #=======================================================================

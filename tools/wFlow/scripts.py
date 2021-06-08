@@ -1408,8 +1408,20 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         #=======================================================================
         # get data
         #=======================================================================
-        wrkr.load_expo(df=self.data_d['dExpo'])
+        #collect inputs for load_expo
+        """should be a nicer way to do this"""
+        if 'dExpo' in self.data_d:
+            df = self.data_d['dExpo']
+        else:
+            df=None
+        if 'dexpo_fp' in self.pars_d:
+            fp = self.pars_d['dexpo_fp']
+        else:
+            fp=None
+            
+        wrkr.load_expo(fp=fp, df=df)
         
+        #fragility functions
         wrkr.load_fragFuncs(os.path.join(self.base_dir, pars_d['dcurves_fp']))
         
         #=======================================================================
