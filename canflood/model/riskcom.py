@@ -330,8 +330,8 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
     # CALCULATORS-------
     #===========================================================================
     def ev_multis(self, #calculate (discrete) expected value from events w/ multiple exposure sets
-           ddf, #damages per exposure set (
-           edf, #secondary liklihoods per exposure set ('exlikes'). see load_exlikes()
+           ddf, #damages per exposure set 
+           edf, #secondary liklihoods per exposure set ('exlikes'). see set_exlikes()
                 # nulls were replaced by 0.0 (e.g., asset not provided a secondary probability)
                 # missing colums were replaced by 1.0 (e.g., non-failure events)
             
