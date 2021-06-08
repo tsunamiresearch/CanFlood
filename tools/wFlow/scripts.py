@@ -399,6 +399,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
                     fp_l,
                     layType = 'raster',
                     logger=None,
+                    base_dir=None,
                     **kwargs):
         if logger is None: logger=self.logger
         log=logger.getChild('load_layers')
@@ -406,7 +407,11 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         
         d = dict()
         for fp_raw in fp_l:
-            fp = os.path.join(self.base_dir, fp_raw)
+            if not base_dir is None:
+                fp = os.path.join(base_dir, fp_raw)
+            else:
+                fp = fp_raw
+                
             assert os.path.exists(fp), fp
             
             if layType == 'raster':
@@ -451,23 +456,43 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         #=======================================================================
         # loop and load
         #=======================================================================
-        d = dict()
-        for fn, fp in fp_d.items():
-            assert os.path.exists(fp), fn
-            if ext == '.tif':
-                d[fn] = self.load_rlay(fp, logger=log,aoi_vlay=aoi_vlay, **kwargs)
-            else:
-                raise Error()
-
-            #add to my store
-            self.mstore.addMapLayer(d[fn])
-            
-        #=======================================================================
-        # wrap
-        #=======================================================================
-
-        log.info('loaded %i'%len(d))
+        d = self.load_layers(list(fp_d.values()), 
+                         layType={'.tif':'raster'}[ext],
+                         logger=log,
+                         aoi_vlay=aoi_vlay, **kwargs)
+        
+ 
         return d
+    
+ 
+            
+    
+    def load_layers_tree(self, #load all layers in a tree
+                         data_dir,
+                         ext='.tif',
+                         logger=None,
+                         **kwargs):
+        if logger is None: logger=self.logger
+        log=logger.getChild('load_layers_tree')
+        
+        
+        #get all files matching extension
+        fps_l = list()
+        for dirpath, _, fns in os.walk(data_dir):
+            fps_l = fps_l + [os.path.join(dirpath, e) for e in fns if e.endswith(ext)]
+            
+        log.info('found %i matching files in %s'%(len(fps_l), data_dir))
+
+        #load each
+        d = self.load_layers(fps_l, 
+                 layType={'.tif':'raster'}[ext],
+                 logger=log,
+                  **kwargs)
+        
+ 
+        return d
+
+        
             
     #===========================================================================
     # TOOLS.BUILD-------
