@@ -871,7 +871,7 @@ class Qcoms(basic.ComWrkr): #baseclass for working w/ pyqgis outside the native 
 
         
         #make sure the columns are unique
-        assert df.columns.is_unique
+        assert df.columns.is_unique, 'got duplicated column names: \n    %s'%(df.columns.tolist())
         
         #check datatypes
         assert np.array_equal(df.columns, df.columns.astype(str)), 'got non-string column names'

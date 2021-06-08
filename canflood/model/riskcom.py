@@ -11,7 +11,7 @@ import numpy as np
 from scipy import interpolate, integrate
 
 from hlpr.exceptions import QError as Error
-from hlpr.plot import Plotr
+from hlpr.plot import Plotr, view
 from model.modcom import Model
 
 
@@ -118,9 +118,17 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
         fill_exn_d = dict()
         for aep, exn_l in cplx_evn_d.items(): 
             
+            """
+            edf.columns
+            view(edf.loc[:, edf.columns.isin(exn_l)])
+            """
+            
             miss_l = set(exn_l).difference(edf.columns)
             if not len(miss_l)<2:
-                raise Error('can only fill one exposure column per complex event: %s'%miss_l)
+                """
+                check if you forgot to specify a hazard layer during exlikes sampling
+                """
+                raise Error('can only fill one exposure column per complex event\n     %s'%miss_l)
             
             if len(miss_l)==1:
                 fill_exn_d[aep] = list(miss_l)[0]

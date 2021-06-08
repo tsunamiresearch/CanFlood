@@ -308,7 +308,6 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         # pull previously loaded
         #=======================================================================
         if cn in self.wrkr_d:
-            
             log.debug('pulled \'%s\' from container'%cn)
         #=======================================================================
         # start your own
@@ -1073,11 +1072,11 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         # plots
         #=======================================================================
         if self.plot:
-            fig = wrkr.plot_boxes()
-            self.output_fig(fig)
+            fig = wrkr.plot_boxes(logger=log)
+            self.output_fig(fig, logger=log)
             
-            fig = wrkr.plot_hist()
-            self.output_fig(fig)
+            fig = wrkr.plot_hist(logger=log)
+            self.output_fig(fig, logger=log)
 
         #=======================================================================
         # wrap
@@ -1255,7 +1254,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         #=======================================================================
         if logger is None: logger=self.logger
         log = logger.getChild('plot_risk_ttl')
-
+        assert self.attriMode
         
         #=======================================================================
         # setup worker
