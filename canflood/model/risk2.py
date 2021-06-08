@@ -290,7 +290,7 @@ class Risk2(RiskModel, #This inherits 'Model'
         #======================================================================
 
         #=======================================================================
-        # #take maximum expected value at each asset
+        # conditional exposure
         #=======================================================================
         if 'exlikes' in self.data_d:
             ddf1 = self.ev_multis(ddf, self.data_d['exlikes'], aep_ser, logger=log)
