@@ -1002,7 +1002,7 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
         result = float(f(0)) #y value at x=0
         
         if not result >=0:
-            raise Error('got negative extrapolation: %.2f'%result)
+            raise Error('got negative extrapolation on \'%s\': %.2f'%(ser.name, result))
         
         return result 
     
