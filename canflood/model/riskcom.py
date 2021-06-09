@@ -260,7 +260,7 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
         
  
         if logger is None: logger=self.logger
-        log = logger.getChild('prep_ttl')
+        log = logger.getChild('set_ttl')
         if tlRaw_df is None: tlRaw_df = self.raw_d[dtag]
         #=======================================================================
         # precheck
@@ -309,7 +309,12 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
         df2 = df1.loc[df1['plot'], :].copy() #drop those not flagged for plotting
         
         #typeset aeps
-        df2.loc[:, 'aep'] = df2['aep'].astype(np.float64).round(self.prec)
+        df2.loc[:, 'aep'] = df2['aep'].astype(np.float64)
+        
+        """
+        view(df2)
+        df2['aep'].astype(np.float64).values
+        """
 
         #=======================================================================
         # #invert aep (w/ zero handling)

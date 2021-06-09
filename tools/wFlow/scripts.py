@@ -12,7 +12,7 @@ executing a CanFlood workflow froma python console
 #===============================================================================
 import inspect, logging, os,  datetime, shutil, gc, weakref
 
-from qgis.core import QgsCoordinateReferenceSystem, QgsMapLayerStore, QgsMapLayer, QgsVectorLayer
+from qgis.core import QgsMapLayer, QgsVectorLayer
 import pandas as pd
 import numpy as np
 
@@ -1290,7 +1290,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         # defaults
         #=======================================================================
         if logger is None: logger=self.logger
-        log = logger.getChild('plot_risk_ttl')
+        log = logger.getChild('compare')
 
         
         wrkr = self._get_wrkr(Cmpr, fps_d=fps_d)
@@ -1308,11 +1308,46 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         #=======================================================================
         # plots
         #=======================================================================
-        for ylab in ylabs:
-            fig = wrkr.riskCurves(y1lab=ylab, logger=log)
-            self.output_fig(fig)
+        if self.plot:
+            for ylab in ylabs:
+                fig = wrkr.riskCurves(y1lab=ylab, logger=log)
+                self.output_fig(fig, logger=log)
             
         return res_d
+    
+    def merge(self, fps_d,
+              logger=None,
+              ylabs = ['AEP', 'impacts'], #types of plots to generate
+              ):
+        
+        assert self.write, 'write needs to be enabled for spawning the children'
+        
+        #=======================================================================
+        # defaults
+        #=======================================================================
+        if logger is None: logger=self.logger
+        log = logger.getChild('merge')
+
+        
+        wrkr = self._get_wrkr(Cmpr, fps_d=fps_d)
+        wrkr.setup_fromData(self.data_d) #setup w/ the pre-loaded data
+        
+        #=======================================================================
+        # get data
+        #=======================================================================
+        cdxind, cWrkr = wrkr.build_composite()
+        
+        
+        #=======================================================================
+        # plots
+        #=======================================================================
+        if self.plot:
+            for ylab in ylabs:
+                fig = wrkr.riskCurves(y1lab=ylab, logger=log)
+                self.output_fig(fig, logger=log)
+        
+        
+        
     
     #===========================================================================
     # TOOLS DIKES-----------
