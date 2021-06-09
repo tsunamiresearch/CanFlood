@@ -2547,7 +2547,10 @@ class DFunc(ComWrkr, #damage function or DFunc handler
         dd_df = dd_df.drop(dd_df.index[0], axis=0).reset_index(drop=True) #drop the depth-damage row
         
         #typeset it
-        dd_df.iloc[:,0:2] = dd_df.iloc[:,0:2].astype(float)
+        try:
+            dd_df.iloc[:,0:2] = dd_df.iloc[:,0:2].astype(float)
+        except Exception as e:
+            raise Error('failed to typsset the ddf w/ \n    %s'%e)
         
         """
         view(dd_df)

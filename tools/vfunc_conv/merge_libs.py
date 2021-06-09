@@ -87,13 +87,17 @@ class VfMerge(VfConv):
         mlib1 = dict()
         for k, df_raw in mlib.items():
             dd_d, meta_d = self._get_split(df_raw)
-
+            
+            #remove key row
+            del meta_d['exposure']
             
             #impact_units
             if not 'impact_units' in meta_d.keys():
                 meta_d['impact_units'] = {'$/m2':'$CAD'}[meta_d['impact_var']]
                 
+                
             #ressemble
+            meta_d['exposure']='impact' #replace key row
             crv_d = {**meta_d, **dd_d}
             
             """
@@ -119,13 +123,14 @@ class VfMerge(VfConv):
         # add summary
         #=======================================================================
         #get the summary tab first
-        #=======================================================================
-        # smry_df = self._get_smry(mlib1.copy(), clib_fmt_df=False, set_index=True)
-        # mlib = { **{'_smry':smry_df},
-        #      **mlib,
-        #     }
-        #=======================================================================
-        
+        try:
+            smry_df = self._get_smry(mlib1.copy(), clib_fmt_df=False, set_index=True)
+            mlib = { **{'_smry':smry_df},
+                 **mlib,
+                }
+        except Exception as e:
+            log.warning('failed to get sumary tab w/ \n    %s'%e)
+         
         return rd
             
             
@@ -142,12 +147,12 @@ if __name__=='__main__':
     
     mlib = wrkr.run(lib_d, overlaps='warn')
     
-    wrkr.output(mlib, ofn='curves_merge_%s.xls'%wrkr.today_str)
+    wrkr.output(mlib, ofn='curves_merge_%s.xls'%datetime.datetime.now().strftime('%Y-%m-%d'))
     
     #===========================================================================
     # wrap
     #===========================================================================
-    force_open_dir(wrkr.out_dir)
+    #force_open_dir(wrkr.out_dir)
     tdelta = datetime.datetime.now() - start
     print('finished in %s'%tdelta)
     
