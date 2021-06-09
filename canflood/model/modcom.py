@@ -2635,7 +2635,7 @@ class DFunc(ComWrkr, #damage function or DFunc handler
                   
                   #library format
                   clib_fmt_df = False, #whether the curve data is a dataframe or not
-                  
+                  set_index = False, #for clib_fmt_df=True, whether the index has been set (or is on col 0 still)
                   
                   
                   #handle column names
@@ -2663,7 +2663,17 @@ class DFunc(ComWrkr, #damage function or DFunc handler
         # conversion
         #=======================================================================
         if clib_fmt_df:
-            clib_d = {k:df.iloc[:,0].to_dict() for k,df in clib_d.items()}
+            if not set_index:
+                clib_d = {k:df.iloc[:,0].to_dict() for k,df in clib_d.items()}
+            else:
+                
+                clib_d = {k:df.set_index(0, drop=True).iloc[:,0].to_dict() for k,df in clib_d.items()}
+            
+        #check it
+        for k,v in clib_d.items():
+            self.tabn = k #set for reporting
+            assert isinstance(v, dict), 'expected a dict for \'%s\''%k
+            assert self.check_crvd(v), '%s failed the check'%k
         
         #=======================================================================
         # build data
@@ -2671,7 +2681,13 @@ class DFunc(ComWrkr, #damage function or DFunc handler
         try:
             df_raw = pd.DataFrame(clib_d).T
             
+
+            
             """
+            for k,v in clib_d.items():
+                print(k)
+                for k1,v1 in v.items():
+                    print('    %s:%s'%(k1,v1))
             clib_d.keys()
             
             """
@@ -2692,6 +2708,9 @@ class DFunc(ComWrkr, #damage function or DFunc handler
             ddf.columns = ddf.columns.astype(np.float)
             ddf = ddf.astype(np.float)
         except Exception as e:
+            """
+            wont work if you have a very messy library
+            """
             raise Error('got bad type on depth values w/ \n    %s'%e)
 
         
@@ -2738,6 +2757,30 @@ class DFunc(ComWrkr, #damage function or DFunc handler
         view(sdf)
         """
         return sdf
+    
+    def _get_split(self,#split the raw df into depth-damage and metadata
+                   df_raw, #dummy index
+                   fmt='dict', #result format
+                   ): 
+        
+        df = df_raw.set_index(0, drop=True)
+        
+        #get dd
+        assert 'exposure' in df.index
+        
+        dd_indx = df.index[df.index.get_loc('exposure')+1:] #get those after exposure
+        ddf = df.loc[dd_indx, :]
+        
+        #get meta
+        mdf = df.loc[~df.index.isin(dd_indx), :]
+        
+        if fmt=='df':
+            return ddf, mdf
+        elif fmt=='dict':
+            return ddf.iloc[:,0].to_dict(), mdf.iloc[:,0].to_dict()
+        
+        
+        
 
         
     def check_cdf(self, #convenience for checking the df as loaded
