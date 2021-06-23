@@ -238,7 +238,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
     #===========================================================================
     name = None
     pars_d = None #parameters for control file
-    tpars_d = None #parameters for passing to tools
+    tpars_d = dict() #parameters for passing to tools
     
     #===========================================================================
     # flow control attributes
@@ -871,6 +871,8 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         #=======================================================================
         rkwargs = self._get_kwargs(wrkr.__class__.__name__)
         kwargs = {k:pars_d[k] for k in [] if k in pars_d}
+        
+        """for event_rels, need to use tpars_d"""
         res_df = wrkr.run(finv_vlay, fpol_d,  **{**kwargs, **rkwargs})
         
         #=======================================================================
@@ -1123,6 +1125,8 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
         #=======================================================================
         # execute
         #=======================================================================
+        """for event_rels, pass in the pars_d
+                see prep_cf()"""
         res_ttl, res_df = wrkr.run(**rkwargs)
  
         #=======================================================================
@@ -1176,7 +1180,7 @@ class WorkFlow(Session): #worker with methods to build a CF workflow from
                     dkey_tab = 'dmgs'
                     rkwargs={'relabel':None}
                 """
-            
+        raise Error('getting string type on some risk fields with nulls')
         #=======================================================================
         # defaults
         #=======================================================================

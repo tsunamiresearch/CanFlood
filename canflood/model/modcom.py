@@ -2212,7 +2212,7 @@ class Model(ComWrkr,
         if cboolidx.any():
             if logger is None: logger = self.logger
             
-            log.debug('/n%s'%df.loc[cboolidx, :])
+            log.debug('\n%s'%df.loc[cboolidx, :])
             log.warning(' %i (of %i)  assets have non-monotonic-increasing damages. see logger'%(
                 cboolidx.sum(), len(cboolidx)))
             

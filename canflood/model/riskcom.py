@@ -4,7 +4,7 @@ Created on Mar. 9, 2021
 @author: cefect
 '''
 
-import configparser, os, inspect, logging, copy, itertools, datetime
+import os, inspect, logging, copy, itertools, datetime
 import pandas as pd
 idx = pd.IndexSlice
 import numpy as np
@@ -105,8 +105,10 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
                 valid = False
                 rpt_df = cplx_df[boolidx].join(
                     cplx_df[boolidx].sum(axis=1).rename('sum'))
+                
                 with pd.option_context('display.max_rows', 500,'display.max_columns', None,'display.width',1000):
                     log.debug('aep%.4f: \n\n%s'%(aep, rpt_df))
+                    
                 log.error('aep%.4f w/ %i exEvents failed %i (of %i) Psum<1 checks (Pmax=%.2f).. see logger \n    %s'%(
                     aep, len(exp_l), boolidx.sum(), len(boolidx),cplx_df.sum(axis=1).max(), exp_l))
                 
@@ -208,7 +210,7 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
             boolidx = cplx_df.sum(axis=1)!=1.0 #find those exceeding 1.0
 
             if boolidx.any():
-                """allowing this to mass when event_rels=max"""
+                """allowing this to pass when event_rels=max"""
                 valid = False
                 log.warning('aep%.4f failed %i (of %i) Psum<=1 checks (Pmax=%.2f)'%(
                     aep, boolidx.sum(), len(boolidx), cplx_df.sum(axis=1).max()))
@@ -382,6 +384,8 @@ class RiskModel(Plotr, Model): #common methods for risk1 and risk2
         if logger is None: logger=self.logger
         log = logger.getChild('ev_multis')
         cplx_evn_d = self.cplx_evn_d #{aep: [eventName1, eventName2,...]}
+        
+        """needs to be consistent with what was done during set_exlikes()"""
         if event_rels is None: event_rels = self.event_rels
 
         #======================================================================
