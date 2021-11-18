@@ -1,5 +1,5 @@
 =====================
-Footnotes
+Citations
 =====================
 
 .. [Ref1] All SOFDA inputs must be built and configured manually.
