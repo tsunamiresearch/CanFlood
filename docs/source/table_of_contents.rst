@@ -8,4 +8,3 @@ Table of Contents
   notes_and_acknowledgements
   glossary
   introduction
-  background

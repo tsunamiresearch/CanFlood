@@ -10,4 +10,3 @@ Please have a look into the documents below.
    notes_and_acknowledgements
    glossary
    introduction
-   background
