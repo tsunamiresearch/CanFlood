@@ -2,7 +2,7 @@
 Footnotes
 =====================
 
-.. [Ref] All SOFDA inputs must be built and configured manually.
+.. [Ref1] All SOFDA inputs must be built and configured manually.
 
 .. [2] The ‘capped’ values with null and rounding treatment.
 
