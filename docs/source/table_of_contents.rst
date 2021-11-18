@@ -2,10 +2,8 @@
 Table of Contents
 ============================
 
-.. contents:: Table of Contents
+.. toctree::
+   :maxdepth: 2
 
-   table_of_contents
-   notes_and_acknowledgements
-
-
-notes_and_acknowledgements
+  table_of_contents
+  notes_and_acknowledgements
