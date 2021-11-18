@@ -9,4 +9,4 @@ Table of Contents
   glossary
   introduction
   toolsets
-  footnotes
+  citations

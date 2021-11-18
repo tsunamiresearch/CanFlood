@@ -842,12 +842,9 @@ The QGIS ‘Styling Manager’ |stylingManager| provides an interface for organi
    :align: middle
    :width: 30
 
-.. _Section6:
 
-============================
-6. Tutorials
-============================
-
-This section provides a few tutorials to get a user started in CanFlood. It is suggested to work through the tutorials sequentially, referring to Section 5 when more detailed information is desired. For all tutorials, the project CRS can safely be set from any of the data layers, unless otherwise specified. Tutorials are written assuming users are familiar with QGIS and object-based flood risk modelling. All tutorial data can be found in the latest `‘tutorial_data’ zip <https://github.com/IBIGroupCanWest/CanFlood/blob/master/tutorial_data_20210315.zip>`__ on the project page.
+***********************
+Footnotes                                  
+***********************
 
 .. [2] The ‘capped’ values with null and rounding treatment.

@@ -11,4 +11,4 @@ Please have a look into the documents below.
    glossary
    introduction
    toolsets
-   footnotes
+   citations
