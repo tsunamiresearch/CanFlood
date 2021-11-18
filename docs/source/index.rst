@@ -8,6 +8,7 @@ Please have a look into the documents below.
 
    table_of_contents
    notes_and_acknowledgements
+   glossary
 
 
    includeme
