@@ -445,7 +445,7 @@ The ‘Impacts (L2)’ model facilitates the modelling of exposure reductions br
 
 **Additional Outputs**
 
-For advanced analysis, users can select the ‘dmgs_expnd’ option to output the complete impacts calculated on each nested function of each asset. This large, intermediate, data file provides the raw, scaled, capped, and resolved [2]_ impact values for each asset and each nested function. This can be useful for additional data analysis and troubleshooting but does not need to be output for any model routines (i.e., it is provided for information only).
+For advanced analysis, users can select the ‘dmgs_expnd’ option to output the complete impacts calculated on each nested function of each asset. This large, intermediate, data file provides the raw, scaled, capped, and resolved (The ‘capped’ values with null and rounding treatment) impact values for each asset and each nested function. This can be useful for additional data analysis and troubleshooting but does not need to be output for any model routines (i.e., it is provided for information only).
 
 Another optional output is supplied through the ‘bdmg_smry’ function and corresponding parameter that summarizes the results of each step or routine in the ‘Impacts (L2)’ module. The first tab in the spreadsheet, ‘_smry’, shows the total impacts for each event at each routine in the module. The next group of tabs summarize the impacts calculated on each ftag for the corresponding routine (e.g., ‘raw’, ‘scaled’, ‘capped’, ‘dmg’, ‘mi_Lthresh’, ‘mi_iScale’, ‘mi_iVal’). Two additional tabs are provided to summarize the calculations of the capping routine (i.e., ‘cap_cnts’ and ‘cap_data’).
 
@@ -810,9 +810,9 @@ To facilitate converting from RFDA inventories to CanFlood format, two tools are
 
 **Inventory Conversion**
 
-The RFDA Inventory Conversion requires a point vector layer as an input [3]_. For Residential Inventories (those with struct_type not beginning with ‘S’), each asset is assigned a f0_tag with an ‘_M’ suffix to denote this as a main floor curve (e.g. BD_M) based on the concatenated ‘class’ and ‘struct_type’ values in the inventory. Using the ‘bsmt_f’ value, the f1_tag is also assigned with a ‘_B’ suffix. These suffixes correspond to the curve naming of the DamageCurves tool (described below). The f1_elv is assigned from: f0_elv – bsmt_ht.
+The RFDA Inventory Conversion requires a point vector layer as an input (Can be built from an .xls file by exporting to csv then creating a csv layer in QGIS from the lat/long values). For Residential Inventories (those with struct_type not beginning with ‘S’), each asset is assigned a f0_tag with an ‘_M’ suffix to denote this as a main floor curve (e.g. BD_M) based on the concatenated ‘class’ and ‘struct_type’ values in the inventory. Using the ‘bsmt_f’ value, the f1_tag is also assigned with a ‘_B’ suffix. These suffixes correspond to the curve naming of the DamageCurves tool (described below). The f1_elv is assigned from: f0_elv – bsmt_ht.
 
-For Commercial Inventories (those with struct_type beginning with ‘S’), the f0_tag and f1_tag fields are populated with the ‘struct_type’ and ‘class’ values separately. Where ‘bsmt_f’ = True, a third f2_tag=’ nrpUgPark’ is added to denote the presence of underground parking [4]_. Once converted, the user can start the CanFlood model building process.
+For Commercial Inventories (those with struct_type beginning with ‘S’), the f0_tag and f1_tag fields are populated with the ‘struct_type’ and ‘class’ values separately. Where ‘bsmt_f’ = True, a third f2_tag=’ nrpUgPark’ is added to denote the presence of underground parking (A corresponding simple $/m2 curve is created by the DamageCurves Converter). Once converted, the user can start the CanFlood model building process.
 
 **DamageCurves Converter**
 
@@ -841,10 +841,3 @@ The QGIS ‘Styling Manager’ |stylingManager| provides an interface for organi
 .. |stylingManager| image:: /_static/styling_manager_image.jpg
    :align: middle
    :width: 30
-
-
-***********************
-Footnotes                                  
-***********************
-
-.. [2] The ‘capped’ values with null and rounding treatment.
