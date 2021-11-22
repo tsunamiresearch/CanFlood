@@ -178,7 +178,7 @@ CanFlood models are designed to write and read from small ‘Control Files’. T
 
 .. _Figure1-1:
 
-Figure 1-1. More information on input files is provided in [Section0]_ .
+Figure 1-1. More information on input files is provided in :ref:`Section0` .
 
 .. image:: /_static/intro_1_4_conrol_files.jpg
 
