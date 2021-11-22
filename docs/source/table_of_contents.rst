@@ -8,5 +8,11 @@ Table of Contents
   notes_and_acknowledgements
   glossary
   introduction
+  installation
+  applications_and_workflows
+  inputs_and_data_requirements
   toolsets
-  citations
+  tutorials
+  references
+  appendix_a
+  appendix_b
