@@ -125,8 +125,9 @@ Navigate to the ‘Risk (L1)’ tab. Check the first two boxes as shown below an
 6.1.4. View Results
 ===================
 
-Navigate to the selected working directory. You should see 3 files created:
+Navigate to the selected working directory. You should see 4 files created:
 
+  • *eventypes_run1_tut1a.csv*: derived parameters for each raster;
   • *risk1_tut1a_run1_r_passet*: expected value of inundation per asset;
   • *risk1_tut1a_run1_ttl.csv*: total results, expected value of total inundation per event (and for all events);
   • *tut1a run1 Impacts-ARI plot for 6 events.svg*: a plot of the total results (see below).
