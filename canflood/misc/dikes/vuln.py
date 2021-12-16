@@ -157,6 +157,7 @@ class Dvuln(DPlotr):
         # add crest buffers----------
         #=======================================================================
 
+
         edf_raw = expo_df.loc[:, self.etag_l]
         
         
@@ -164,6 +165,9 @@ class Dvuln(DPlotr):
         boolcol = edf_raw.dtypes.apply(lambda x:np.issubdtype(x, np.number))
         assert boolcol.all(), 'got some bad types \n    %s'%edf_raw.dtypes
  
+
+        edf = expo_df.loc[:, self.etag_l]
+
         
         cb_ser = expo_df[self.cbfn] #pull out buffer data
         assert cb_ser.notna().all(), 'got nulls on %s data'%self.cbfn

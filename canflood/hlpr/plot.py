@@ -354,7 +354,12 @@ class Plotr(ComWrkr):
         ax1.set_xlabel(xlab)
         ax1.set_ylabel(ylab)
  
-
+ 
+        #check for max
+        if len(data) > self.set_cnt_max:
+            log.warning('data set count exceeds max: %i... skipping'%len(data))
+            return fig
+ 
         
         #=======================================================================
         # plot thie histogram
@@ -460,7 +465,12 @@ class Plotr(ComWrkr):
         ax1.set_xlabel(xlab)
         ax1.set_ylabel(ylab)
 
-
+ 
+        #check for max
+        if len(data) > self.set_cnt_max:
+            log.warning('data set count exceeds max: %i... skipping'%len(data))
+            return fig
+ 
         #=======================================================================
         # plot thie histogram
         #=======================================================================

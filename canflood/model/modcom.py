@@ -2635,10 +2635,14 @@ class DFunc(ComWrkr, #damage function or DFunc handler
         
  
         #typeset it
+
         try:
             ddf2 = ddf2.astype(float)
         except Exception as e:
             raise Error('failed to typsset the ddf for \'%s\' w/ \n    %s'%(self.tabn, e))
+
+        dd_df.iloc[:,0:2] = dd_df.iloc[:,0:2].astype(float)
+
         
         """
         view(dd_df)
@@ -2727,7 +2731,9 @@ class DFunc(ComWrkr, #damage function or DFunc handler
                   
                   #library format
                   clib_fmt_df = False, #whether the curve data is a dataframe or not
+
                   set_index = False, #for clib_fmt_df=True, whether to set the index (from column 0)
+
                   
                   
                   #handle column names
@@ -2756,6 +2762,7 @@ class DFunc(ComWrkr, #damage function or DFunc handler
         # conversion
         #=======================================================================
         if clib_fmt_df:
+
             if not set_index: #pull everything into dictionaries
                 clib_d = {k:df.iloc[:,0].to_dict() for k,df in clib_d.items()}
             else:
@@ -2767,6 +2774,9 @@ class DFunc(ComWrkr, #damage function or DFunc handler
             self.tabn = k #set for reporting
             assert isinstance(v, dict), 'expected a dict for \'%s\''%k
             assert self.check_crvd(v), '%s failed the check'%k
+
+            clib_d = {k:df.iloc[:,0].to_dict() for k,df in clib_d.items()}
+
         
         #=======================================================================
         # build data
