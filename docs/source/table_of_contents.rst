@@ -1,5 +1,7 @@
-.. contents:: :local: Table of Contents
+.. contents:: Table of Contents
    :depth: 1
+   :local:
+   :backlinks: none
 
    00a_notes_and_acknowledgements
    00b_glossary
