@@ -1,4 +1,4 @@
-.. contents:: Table of Contents
+.. contents:: :local: Table of Contents
    :depth: 1
 
    00a_notes_and_acknowledgements
