@@ -2,7 +2,7 @@
 Table of Contents
 ============================
 
-.. Contents:: Table of Contents
+.. toctree::
    :maxdepth: 4
 
    table_of_contents
