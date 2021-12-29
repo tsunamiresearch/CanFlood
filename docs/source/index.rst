@@ -3,7 +3,7 @@ Documentation for CanFlood User Manual
 
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    table_of_contents
    00a_notes_and_acknowledgements

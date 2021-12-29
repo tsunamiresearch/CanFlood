@@ -3,7 +3,7 @@ Table of Contents
 ============================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
 
   notes_and_acknowledgements
   glossary
