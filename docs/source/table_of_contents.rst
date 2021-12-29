@@ -5,6 +5,7 @@ Table of Contents
 .. Contents:: Table of Contents
    :maxdepth: 4
 
+   table_of_contents
    00a_notes_and_acknowledgements
    00b_glossary
    01_introduction
