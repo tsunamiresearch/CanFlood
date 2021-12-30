@@ -3,7 +3,7 @@ Table of Contents
 ============================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
    00a_notes_and_acknowledgements
    00b_glossary
